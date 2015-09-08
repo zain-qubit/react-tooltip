@@ -92,6 +92,14 @@ global:
 	<ReactTooltip multiline={true}/>
 ```
 
+##### Regexp: String
+
+```js
+Specific element:
+	<p data-tip="tooltip<br>a<br/>b" data-multiline="true" data-regexp="<br/>"></p>
+	<p data-tip="tooltip<br>a<br/>b" data-multiline={true} data-regexp="<br/>"></p>
+```
+
 
 ### License
 

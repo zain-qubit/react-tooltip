@@ -150,7 +150,7 @@ var ReactTooltip = (function (_React$Component) {
     key: 'showTooltip',
     value: function showTooltip(e) {
       var originTooltip = e.target.getAttribute("data-tip"),
-          regexp = /<br\s*\W*>|\W+/,
+          regexp = e.target.getAttribute("data-regexp") ? new RegExp(e.target.getAttribute("data-regexp")) : /<br\s*\W*>|\W+/,
           multiline = e.target.getAttribute("data-multiline") ? e.target.getAttribute("data-multiline") : this.props.multiline ? this.props.multiline : false;
       var tooltipText = undefined,
           multilineCount = 0;
