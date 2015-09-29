@@ -115,7 +115,12 @@ class ReactTooltip extends React.Component {
 
   showTooltip(e) {
     const originTooltip = e.target.getAttribute("data-tip"),
-          regexp = /<br\s*\W*>|\W+/ , 
+          regexp = e.target.getAttribute("data-regexp") ? 
+                     new RegExp((e.target.getAttribute("data-regexp").match(/\/(.*)\/(.*)/))[1],
+                     (e.target.getAttribute("data-regexp").match(/\/(.*)\/(.*)/))[2]) :
+                     this.props.regexp ?
+                       this.props.regexp :
+                       /<br\s*\W*>|\W+/ ,
           multiline = e.target.getAttribute("data-multiline") ? 
                         e.target.getAttribute("data-multiline") :
                         this.props.multiline ? 
@@ -279,7 +284,8 @@ ReactTooltip.propTypes = {
   type: PropTypes.string,
   effect: PropTypes.string,
   position: PropTypes.object,
-  multiline: PropTypes.bool
+  multiline: PropTypes.bool,
+  regexp: PropTypes.instanceOf(RegExp)
 };
 
 export default ReactTooltip;

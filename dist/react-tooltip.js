@@ -150,7 +150,7 @@ var ReactTooltip = (function (_React$Component) {
     key: 'showTooltip',
     value: function showTooltip(e) {
       var originTooltip = e.target.getAttribute("data-tip"),
-          regexp = e.target.getAttribute("data-regexp") ? new RegExp(e.target.getAttribute("data-regexp")) : /<br\s*\W*>|\W+/,
+          regexp = e.target.getAttribute("data-regexp") ? new RegExp(e.target.getAttribute("data-regexp").match(/\/(.*)\/(.*)/)[1], e.target.getAttribute("data-regexp").match(/\/(.*)\/(.*)/)[2]) : this.props.regexp ? this.props.regexp : /<br\s*\W*>|\W+/,
           multiline = e.target.getAttribute("data-multiline") ? e.target.getAttribute("data-multiline") : this.props.multiline ? this.props.multiline : false;
       var tooltipText = undefined,
           multilineCount = 0;
@@ -286,7 +286,8 @@ ReactTooltip.propTypes = {
   type: _react.PropTypes.string,
   effect: _react.PropTypes.string,
   position: _react.PropTypes.object,
-  multiline: _react.PropTypes.bool
+  multiline: _react.PropTypes.bool,
+  regexp: _react.PropTypes.instanceOf(RegExp)
 };
 
 exports['default'] = ReactTooltip;
