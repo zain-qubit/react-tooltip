@@ -47,18 +47,42 @@ class ReactTooltip extends React.Component {
   bindListener() {
     let targetArray = document.querySelectorAll("[data-tip]");
     for(let i = 0; i < targetArray.length; i++) {
-      targetArray[i].addEventListener("mouseenter", this.showTooltip, false);
-      targetArray[i].addEventListener("mousemove", this.updateTooltip, false);
-      targetArray[i].addEventListener("mouseleave", this.hideTooltip, false);
+      if (targetArray[i].dataset.showEvent &&
+        targetArray[i].dataset.updateEvent &&
+        targetArray[i].dataset.hideEvent) {
+        targetArray[i].addEventListener(targetArray[i].dataset.showEvent, this.showTooltip, false);
+        targetArray[i].addEventListener(targetArray[i].dataset.updateEvent, this.updateTooltip, false);
+        targetArray[i].addEventListener(targetArray[i].dataset.hideEvent, this.hideTooltip, false);
+      } else if (this.props.showEvent && this.props.updateEvent && this.props.hideEvent) {
+        targetArray[i].addEventListener(this.props.showEvent, this.showTooltip, false);
+        targetArray[i].addEventListener(this.props.updateEvent, this.updateTooltip, false);
+        targetArray[i].addEventListener(this.props.hideEvent, this.hideTooltip, false);
+      } else {
+        targetArray[i].addEventListener("mouseenter", this.showTooltip, false);
+        targetArray[i].addEventListener("mousemove", this.updateTooltip, false);
+        targetArray[i].addEventListener("mouseleave", this.hideTooltip, false);
+      }
     }
   }
 
   unbindListener() {
     let targetArray = document.querySelectorAll("[data-tip]");
     for(let i = 0; i < targetArray.length; i++) {
-      targetArray[i].removeEventListener("mouseenter", this.showTooltip);
-      targetArray[i].removeEventListener("mousemove", this.updateTooltip);
-      targetArray[i].removeEventListener("mouseleave", this.hideTooltip);
+      if (targetArray[i].dataset.showEvent &&
+        targetArray[i].dataset.updateEvent &&
+        targetArray[i].dataset.hideEvent) {
+        targetArray[i].removeEventListener(targetArray[i].dataset.showEvent, this.showTooltip, false);
+        targetArray[i].removeEventListener(targetArray[i].dataset.updateEvent, this.updateTooltip, false);
+        targetArray[i].removeEventListener(targetArray[i].dataset.hideEvent, this.hideTooltip, false);
+      } else if (this.props.showEvent && this.props.updateEvent && this.props.hideEvent) {
+        targetArray[i].removeEventListener(this.props.showEvent, this.showTooltip, false);
+        targetArray[i].removeEventListener(this.props.updateEvent, this.updateTooltip, false);
+        targetArray[i].removeEventListener(this.props.hideEvent, this.hideTooltip, false);
+      } else {
+        targetArray[i].removeEventListener("mouseenter", this.showTooltip, false);
+        targetArray[i].removeEventListener("mousemove", this.updateTooltip, false);
+        targetArray[i].removeEventListener("mouseleave", this.hideTooltip, false);
+      }
     }
   }
 
@@ -285,7 +309,10 @@ ReactTooltip.propTypes = {
   effect: PropTypes.string,
   position: PropTypes.object,
   multiline: PropTypes.bool,
-  regexp: PropTypes.instanceOf(RegExp)
+  regexp: PropTypes.instanceOf(RegExp),
+  showEvent: PropTypes.string,
+  updateEvent: PropTypes.string,
+  hideEvent: PropTypes.string
 };
 
 export default ReactTooltip;

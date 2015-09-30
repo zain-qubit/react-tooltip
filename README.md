@@ -103,6 +103,16 @@ global:
 	<ReactTooltip multiline={true} regexp={/<br\/>/}/>
 ```
 
+##### Event: String
+
+```js
+Specific element:
+	<p data-tip="tooltip" data-show-event="customShowEvent" data-update-event="customUpdateEvent" data-hide-event="customHideEvent"></p>
+	
+global:	
+	<ReactTooltip showEvent="customShowEvent" updateEvent="customUpdateEvent" hideEvent="customHideEvent"/>
+```
+
 
 ### License
 
